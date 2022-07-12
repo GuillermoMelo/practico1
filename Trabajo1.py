@@ -1,5 +1,3 @@
-from encodings import utf_8
-from fileinput import close
 import string
 #ARCHIVOS A USAR
 lectura="spanish.lst"
