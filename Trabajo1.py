@@ -3,6 +3,7 @@ import string
 lectura="spanish.lst"
 provisorio="texto_provisorio.txt"
 nueva_frase=""
+frase_final=""
 #EXCEPCION
 try:
     with open(lectura,'r') as archivo:
@@ -13,18 +14,17 @@ except FileNotFoundError:
 #PROGRAMA PASADO A MINUSCULAS
 frase=input("ingrese texto: ").lower()
 #QUITAR TILDES
-def tildes(frase):
+def borrar_tildes(frase):
     a,b='áéíóú','aeiou'
     cambio=str.maketrans(a,b)
     nueva_frase=frase.translate(cambio)
     return (nueva_frase)
-tildes(frase)
+nueva_frase=borrar_tildes(frase)
 #BUCLE HASTA @FIN
 archivo=open(provisorio,'w' , encoding="utf-8")
 while frase != "@fin":  
-    
-    frase=input("ingrese texto: ").lower()
-    tildes(frase)
     frase_final=nueva_frase.translate(str.maketrans('','',string.punctuation))
     archivo.write(frase_final + "\n")
+    frase=input("ingrese texto: ").lower()
+    nueva_frase=borrar_tildes(frase)
 archivo.close()
