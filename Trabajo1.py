@@ -5,6 +5,7 @@ provisorio="texto_provisorio.txt"
 nueva_frase=""
 frase_final=""
 final_lista=[]
+conteo=0
 #EXCEPCION
 try:
     with open(diccionario,'r') as archivo:
@@ -33,18 +34,34 @@ archivo.close()
 #CAMBIO DE FORMATO Y BUSQUEDA
 with open (provisorio,"r", encoding="utf-8") as archivo_provisorio:
      #lista es archivo provisorio pasado a una lista
-    lista=archivo_provisorio.readlines()
+    lista2=archivo_provisorio.read()
+    lista=lista2.split()
     with open (diccionario, "r", encoding="utf-8") as archivo_diccionario:
         
         # diccionario total es todo el diccionario pasado a una lista
-        diccionario_total = archivo_diccionario.readlines()
-#modificar lo que sigue
-        for palabra in lista:
-            lo_encontre=False
-            for busqueda in archivo_diccionario:
-                if palabra==busqueda:
-                    lo_encontre=True
-                    break
+        diccionario_total2= archivo_diccionario.read()
+        diccionario_total=diccionario_total2.split()
+       #print(diccionario_total)
+        
+for palabra in lista:
+    if palabra not in final_lista:
+        if palabra not in diccionario_total:
+            conteo += 1
             final_lista.append(palabra)
-    print (lista)
-    print (final_lista)
+            print(final_lista)
+for elem in final_lista:
+    print(f"las palabras que no estan en el diccionario son: {conteo} y son: {elem}")
+pregunta=input("desea agregarlas: S/n")
+if pregunta == "s":
+    with open (diccionario,"a", encoding="utf-8") as agregado:
+        diccionario_total.append(final_lista)
+elif pregunta == "si":
+    with open (diccionario,"a", encoding="utf-8") as agregado:
+        diccionario_total.append(final_lista)
+elif pregunta == "n":
+    print ("gracias")
+elif pregunta == "no":
+    print("gracias")
+else:
+    print("respuesta erronea")
+    pregunta=input("desea agregarlas: S/n")
